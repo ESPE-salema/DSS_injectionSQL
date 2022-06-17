@@ -6,9 +6,9 @@ $password=$_POST['password'];
 
 
 $consulta="SELECT * FROM usuarios where usuario = '$usuario' and password = '$password'";
-$resultado=mysqli_query($conexion,$consulta);
+$resultado=pg_query($pdo, $consulta);
 
-$filas=mysqli_num_rows($resultado);
+$filas=pg_num_rows($resultado);
 
 if($filas){
   
@@ -23,5 +23,5 @@ if($filas){
   <h1 class="bad">ERROR DE AUTENTIFICACION</h1>
   <?php
 }
-mysqli_free_result($resultado);
-mysqli_close($conexion);
+pg_free_result($resultado);
+pg_close($pdo);
