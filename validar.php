@@ -1,27 +1,25 @@
 <?php
 include('db.php');
-$usuario=$_POST['usuario'];
-$password=$_POST['password'];
+$usuario = $_POST['usuario'];
+$password = $_POST['password'];
 
 
 
-$consulta="SELECT * FROM usuarios where usuario = '$usuario' and password = '$password'";
-$resultado=pg_query($pdo, $consulta);
+$consulta = "SELECT * FROM usuarios where usuario = '$usuario' and password = '$password'";
+$resultado = pg_query($conexion, $consulta);
 
-$filas=pg_num_rows($resultado);
+$filas = pg_num_rows($resultado);
 
-if($filas){
-  
-    header("location:home.php");
-
-}else{
-    ?>
-    <?php
-    include("index.html");
+if ($filas) {
+  header("location:home.php");
+} else {
+?>
+  <?php
+  include("index.html");
 
   ?>
   <h1 class="bad">ERROR DE AUTENTIFICACION</h1>
-  <?php
+<?php
 }
 pg_free_result($resultado);
-pg_close($pdo);
+pg_close($conexion);
