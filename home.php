@@ -1,3 +1,5 @@
+<?php include('config/db.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Diagoona HTML CSS Template</title>
+    <title>REPORTES</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" /> <!-- https://fonts.google.com/ -->
     <link href="css/bootstrap.min.css" rel="stylesheet" /> <!-- https://getbootstrap.com/ -->
     <link href="fontawesome/css/all.min.css" rel="stylesheet" /> <!-- https://fontawesome.com/ -->
@@ -38,7 +40,61 @@ https://templatemo.com/tm-550-diagoona
                 <div class="tm-col-left"></div>
                 <main class="tm-col-right">
                     <section class="tm-content">
-                        // tabla
+                        <h2 class="mb-2 tm-content-title">REPORTES</h2>
+                        <p class="mb-2">Elije la tabla que deseas ver:</p>
+
+                        <form action="home.php" method="post">
+                            <select class="selectpicker show-tick mb-2" name="table" id="table">
+                                <option value="bar">Bar</option>
+                                <option value="buzon">Buzón</option>
+                                <option value="campus">Campus</option>
+                                <option value="menu">Menu</option>
+                                <option value="preferencias">Preferencias</option>
+                                <option value="snack">Snack</option>
+                            </select>
+                            <div class="tm-row-left mb-2">
+                                <button type="submit" class="btn btn-dark">Ver</button>
+                            </div>
+                        </form>
+
+                        <?php
+                        if (!$mysqli) {
+                            die("Error en la conexión");
+                        }
+
+                        if (isset($_POST['table'])) {
+                            $table = $_POST['table'];
+                        } else {
+                            $table = "bar";
+                        }
+                        print("<h3 class='mb-2 tm-content-title'>Estas viendo la tabla $table</h3>");
+
+                        $sql = "select * from " . $table;
+
+                        $respuesta = pg_query($conexion, $sql);
+                        $result = array();
+
+                        while ($estudiantes = pg_fetch_assoc($respuesta)) {
+                            array_push($result, $estudiantes);
+                        }
+
+                        ?>
+                        <?php if (count($result) > 0) : ?>
+                            <table class="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><?php echo implode('</th><th>', array_keys(current($result))); ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
+                                        <tr>
+                                            <td><?php echo implode('</td><td>', $row); ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php endif; ?>
                     </section>
                 </main>
             </div>
