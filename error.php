@@ -38,7 +38,7 @@ https://templatemo.com/tm-550-diagoona
                 <div class="tm-col-left"></div>
                 <main class="tm-col-right">
                     <section class="tm-content">
-                        // tabla
+                        <h2 class="mb-5 tm-content-title">ERROR DE AUTENTIFICACION</h2>
                     </section>
                 </main>
             </div>
