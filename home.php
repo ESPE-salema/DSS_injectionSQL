@@ -58,10 +58,6 @@ https://templatemo.com/tm-550-diagoona
                         </form>
 
                         <?php
-                        if (!$mysqli) {
-                            die("Error en la conexión");
-                        }
-
                         if (isset($_POST['table'])) {
                             $table = $_POST['table'];
                         } else {
