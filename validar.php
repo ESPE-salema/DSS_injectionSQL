@@ -12,13 +12,8 @@ if ($filas) {
 
   header("location:home.php");
 } else {
-?>
-  <?php
   include("index.php");
-
-  ?>
-  <h1 class="bad">ERROR DE AUTENTIFICACION</h1>
-<?php
+  header("location:error.php");
 }
 
 pg_free_result($resultado);
