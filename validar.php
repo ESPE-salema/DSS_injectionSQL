@@ -11,6 +11,7 @@ $resultado = pg_query($conexion, $consulta);
 $filas = pg_num_rows($resultado);
 
 if ($filas) {
+
   header("location:home.php");
 } else {
 ?>
